@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Job Search AI Prompt Pack — All 100 Prompts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--muted:#94a3b8;--accent:#f59e0b;--accent2:#d97706;--green:#22c55e;--red:#ef4444}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+        body.light{--bg:#f8fafc;--bg2:#f1f5f9;--bg3:#e2e8f0;--text:#0f172a;--muted:#64748b}
+        header{background:var(--bg2);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100}
+        .logo{font-size:1.2rem;font-weight:700;color:var(--accent)}
+        .header-right{display:flex;gap:.75rem;align-items:center}
+        input[type=text]{background:var(--bg3);color:var(--text);border:1px solid rgba(255,255,255,.1);padding:.4rem .75rem;border-radius:.375rem;font-family:inherit;width:220px}
+        btn,button,.btn{background:var(--accent);color:var(--bg);border:none;padding:.4rem .9rem;border-radius:.375rem;cursor:pointer;font-weight:500;font-family:inherit;font-size:.875rem;transition:background .2s}
+        .btn-ghost{background:var(--bg3);color:var(--text)}
+        .layout{display:flex;max-width:1300px;margin:0 auto}
+        .sidebar{width:220px;min-width:220px;padding:1.5rem 1rem;border-right:1px solid rgba(255,255,255,.07);position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto}
+        .sidebar h3{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
+        .cat-btn{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;background:none;border:none;color:var(--muted);padding:.5rem .75rem;border-radius:.375rem;cursor:pointer;font-family:inherit;font-size:.9rem;transition:all .2s;margin-bottom:.25rem}
+        .cat-btn:hover{background:var(--bg3);color:var(--text)}
+        .cat-btn.active{background:rgba(245,158,11,.15);color:var(--accent);font-weight:600}
+        .cat-btn .count{margin-left:auto;font-size:.75rem;background:var(--bg3);padding:.1rem .4rem;border-radius:9999px}
+        .cat-btn.active .count{background:rgba(245,158,11,.2);color:var(--accent)}
+        .main{flex:1;padding:1.5rem 2rem;max-width:calc(100% - 220px)}
+        .section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+        .section-header h2{font-size:1.25rem;font-weight:700}
+        .progress{color:var(--muted);font-size:.85rem}
+        .prompts{display:flex;flex-direction:column;gap:1rem}
+        .prompt-card{background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:.5rem;padding:1.25rem;transition:border-color .2s}
+        .prompt-card:hover{border-color:rgba(245,158,11,.25)}
+        .prompt-card.used{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.03)}
+        .prompt-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+        .prompt-num{font-size:.75rem;font-weight:600;color:var(--accent);background:rgba(245,158,11,.1);padding:.15rem .5rem;border-radius:9999px}
+        .prompt-actions{display:flex;gap:.5rem}
+        .btn-copy{background:var(--bg3);color:var(--text);padding:.25rem .6rem;font-size:.8rem}
+        .btn-copy.copied{background:rgba(34,197,94,.2);color:#86efac}
+        .btn-used{background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);padding:.25rem .6rem;font-size:.8rem;cursor:pointer;border-radius:.375rem;transition:all .2s}
+        .btn-used.active{background:rgba(34,197,94,.15);color:#86efac;border-color:rgba(34,197,94,.3)}
+        .prompt-text{color:var(--text);font-size:.9rem;line-height:1.7;background:rgba(15,23,42,.4);padding:1rem;border-radius:.375rem;border-left:3px solid var(--accent);font-style:italic}
+        body.light .prompt-text{background:rgba(0,0,0,.05)}
+        .prompt-tip{margin-top:.75rem;font-size:.82rem;color:var(--muted)}
+        .prompt-tip strong{color:var(--accent)}
+        .stats-bar{background:var(--bg2);border-bottom:1px solid rgba(255,255,255,.07);padding:.75rem 2rem;display:flex;gap:2rem;align-items:center;font-size:.875rem}
+        .stat-item{color:var(--muted)}
+        .stat-item strong{color:var(--accent)}
+        @media(max-width:768px){.sidebar{display:none}.main{max-width:100%;padding:1rem}}
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">🤖 UK Job Search AI Prompts</div>
+    <div class="header-right">
+        <input type="text" id="search" placeholder="Search prompts..." oninput="filterPrompts()">
+        <button class="btn btn-ghost" onclick="toggleLight()">☀️</button>
+        <button class="btn" onclick="resetUsed()">Reset</button>
+    </div>
+</header>
+
+<div class="stats-bar">
+    <div class="stat-item">Total: <strong>100</strong></div>
+    <div class="stat-item">Used: <strong id="used-count">0</strong></div>
+    <div class="stat-item">Remaining: <strong id="remaining-count">100</strong></div>
+    <div class="stat-item" style="margin-left:auto;color:#64748b;font-size:.8rem">💡 Click "Copy" then paste into ChatGPT, Claude, or any AI</div>
+</div>
+
+<div class="layout">
+    <nav class="sidebar">
+        <h3>Categories</h3>
+        <button class="cat-btn active" onclick="showCat('all',this)">📋 All Prompts <span class="count">100</span></button>
+        <button class="cat-btn" onclick="showCat('cv',this)">📄 CV Writing <span class="count">20</span></button>
+        <button class="cat-btn" onclick="showCat('cover',this)">✉️ Cover Letters <span class="count">20</span></button>
+        <button class="cat-btn" onclick="showCat('linkedin',this)">💼 LinkedIn <span class="count">20</span></button>
+        <button class="cat-btn" onclick="showCat('interview',this)">🎤 Interview Prep <span class="count">20</span></button>
+        <button class="cat-btn" onclick="showCat('salary',this)">💰 Salary Negotiation <span class="count">20</span></button>
+    </nav>
+
+    <main class="main">
+        <div class="section-header">
+            <h2 id="section-title">All 100 Prompts</h2>
+        </div>
+        <div class="prompts" id="prompts-container"></div>
+    </main>
+</div>
+
+<script>
+const PROMPTS = [
+  // CV WRITING (1-20)
+  {id:1,cat:'cv',num:'CV #1',text:'I\'m applying for a [Job Title] role at [Company]. Here are my responsibilities from my last 3 jobs: [paste]. Rewrite each as 3 punchy, achievement-focused bullet points using British English. Start with strong action verbs (Delivered, Led, Grew, Reduced, Built). Include quantified results where I\'ve provided numbers.',tip:'Replace [brackets] with your actual info. Run separately for each past role.'},
+  {id:2,cat:'cv',num:'CV #2',text:'Here is my current CV summary paragraph: [paste]. Rewrite it as a 3-sentence professional profile for a [Job Title] role. It should open with my years of experience and key strength, then highlight my biggest achievement, then state what I\'m looking for. Use confident, active British English. Avoid clichés like "passionate" or "results-driven".',tip:'The profile sits at the top of your CV — make it count.'},
+  {id:3,cat:'cv',num:'CV #3',text:'I have a gap in my CV from [month/year] to [month/year]. During this time I [brief explanation: e.g. cared for a family member / was made redundant / studied / travelled]. Write a confident, honest 1-2 sentence CV note explaining this gap that won\'t raise red flags. Keep it factual and positive.',tip:'Gaps are common. Brevity and honesty work best.'},
+  {id:4,cat:'cv',num:'CV #4',text:'I\'m a career changer moving from [Old Industry/Role] to [New Industry/Role]. Here are my transferable skills: [list]. Rewrite my CV summary and top 5 skills section to emphasise these transferable skills for my target role. Make it clear I\'m a credible candidate despite the industry change.',tip:'Highlight skills, not job titles, when career changing.'},
+  {id:5,cat:'cv',num:'CV #5',text:'Read this job description: [paste full JD]. Now read my current CV: [paste CV]. Identify the 5 biggest gaps between what the employer wants and what my CV currently shows. For each gap, suggest how I could address it (reframing existing experience, adding skills, or honest omissions).',tip:'Use this before every major application to ATS-optimise.'},
+  {id:6,cat:'cv',num:'CV #6',text:'Here is a job posting: [paste]. Extract the top 10 keywords and phrases that an ATS (Applicant Tracking System) would likely scan for. Then review my CV: [paste]. Tell me which keywords are missing and where naturally to add them without keyword stuffing.',tip:'ATS optimisation is critical — most CVs are filtered before humans read them.'},
+  {id:7,cat:'cv',num:'CV #7',text:'Turn these vague job duties into strong CV bullet points using the CAR framework (Context, Action, Result). Original bullets: [paste]. If I haven\'t provided results, suggest what metric I might realistically track down (e.g. team size, budget, timeframe, % improvement).',tip:'Most people describe duties — stand out by describing impact.'},
+  {id:8,cat:'cv',num:'CV #8',text:'I\'m a recent graduate applying for my first [Job Title] role. My degree is in [Subject] from [University, class]. My relevant experience includes: [internships, projects, societies, part-time work]. Write a 2-page CV structure for me including a profile, education, experience, skills, and projects section. Use UK CV conventions.',tip:'For graduates: lead with education and projects over sparse work experience.'},
+  {id:9,cat:'cv',num:'CV #9',text:'I need to tailor my CV for two very different roles: [Role A] and [Role B]. My core background is: [2-3 sentences]. Write two different professional profiles and skills sections — one optimised for each role — that I can swap in depending on which job I\'m applying for.',tip:'Never send a generic CV. This prompt creates modular, swappable sections.'},
+  {id:10,cat:'cv',num:'CV #10',text:'Review this CV section for clarity, grammar, and impact: [paste section]. Rewrite it using British English spelling and punctuation. Fix any passive voice. Tighten any padding. Flag anything that sounds like an empty buzzword and suggest a concrete replacement.',tip:'British English: "organised" not "organized", "behaviour" not "behavior" etc.'},
+  {id:11,cat:'cv',num:'CV #11',text:'I\'m applying for a senior [Job Title] role. My most impressive achievement in the last 3 years is: [describe]. Help me write this as a compelling CV bullet point that quantifies the impact, names the scale (team size, budget, geography), and uses a strong opening verb. Give me 3 alternative versions.',tip:'Senior roles need big-picture impact bullets, not task descriptions.'},
+  {id:12,cat:'cv',num:'CV #12',text:'I have these technical skills: [list]. And these soft skills: [list]. For a [Job Title] role, rank these in order of relevance and create a "Core Skills" section for my CV using a clean 2-column format. Remove any skills that are so basic they\'d seem patronising to list (e.g. "Microsoft Word" for an executive role).',tip:'Skills sections should be curated, not exhaustive.'},
+  {id:13,cat:'cv',num:'CV #13',text:'I\'m writing a CV for a [Job Title] role in [Industry] in the UK. What are the top 5 things hiring managers in this field specifically look for on a CV? What are the 3 most common mistakes candidates make? Give me concrete, specific advice — not generic tips.',tip:'Run this for each new industry you target.'},
+  {id:14,cat:'cv',num:'CV #14',text:'My current job title is [Title] but my actual responsibilities are closer to [Higher Title]. How should I describe my role on my CV to accurately reflect what I do without misrepresenting my title? Give me 3 different ways to frame this in my CV profile and experience section.',tip:'Your title and your role often don\'t match — here\'s how to bridge the gap honestly.'},
+  {id:15,cat:'cv',num:'CV #15',text:'I was made redundant from [Company] in [Month/Year] along with [X others / the whole team / the UK office closure]. Write a professional, concise explanation I can add to my CV or LinkedIn to explain this redundancy without it looking like a performance issue.',tip:'Redundancy is never personal — state it plainly and briefly.'},
+  {id:16,cat:'cv',num:'CV #16',text:'I work in [Public Sector / NHS / Civil Service / Local Government]. I want to move into [Private Sector / Consulting / Startup]. Translate my public sector experience into private sector language. Here are 3 of my key responsibilities: [paste]. Rewrite each to resonate with a commercial employer.',tip:'Public-to-private is a common transition that needs careful reframing.'},
+  {id:17,cat:'cv',num:'CV #17',text:'I\'ve had 7 jobs in 8 years. This looks like job-hopping on my CV. Here\'s my actual career history: [paste]. Help me structure my CV to minimise the visual impact of frequent moves. Suggest ways to group roles, use a functional format, or reframe each move as intentional progression.',tip:'Context matters — frame each move as a choice, not a pattern.'},
+  {id:18,cat:'cv',num:'CV #18',text:'I\'m applying for a remote job. The employer values self-motivation, async communication, and ownership. Rewrite my CV profile and top 3 bullet points to specifically highlight these remote-work qualities, using examples from my work history: [paste relevant experience].',tip:'Remote roles need evidence you can work independently — make it explicit.'},
+  {id:19,cat:'cv',num:'CV #19',text:'Review my full CV for any of these red flags: too long, too short, vague language, missing dates, unexplained gaps, generic profile, weak bullet points, or missing contact info. Here\'s my CV: [paste]. Give me a prioritised fix list — most impactful issues first.',tip:'A fresh-eye review before sending can catch critical mistakes.'},
+  {id:20,cat:'cv',num:'CV #20',text:'I\'m applying for a role that requires [Security Clearance / DBS check / Right to Work in UK]. I am [British citizen / have a work visa / have the required clearance]. Write a brief, professional note I can add to the footer of my CV or in my cover letter to proactively address this.',tip:'Proactively addressing eligibility saves time for both sides.'},
+
+  // COVER LETTERS (21-40)
+  {id:21,cat:'cover',num:'COVER #1',text:'Write a 3-paragraph cover letter for a [Job Title] role at [Company]. The job emphasises [2-3 key requirements from JD]. My background: [2-3 sentences about your experience]. Open with a specific, compelling hook — not "I am writing to apply". Close with a confident call to action. British English throughout. Under 300 words.',tip:'Under 300 words. No "I am writing to apply". Ever.'},
+  {id:22,cat:'cover',num:'COVER #2',text:'I\'m applying speculatively (no job posted) to [Company] for a [Job Title] type role. Write a speculative cover letter that opens with something specific I admire about the company: [company fact/news/product]. Explain why I want to work there, what I bring, and how to reach me. Under 250 words. British English.',tip:'Speculative applications stand out because so few people send them.'},
+  {id:23,cat:'cover',num:'COVER #3',text:'Rewrite this cover letter opening paragraph to be more compelling: [paste current opening]. It currently starts with [cliché opening]. Replace it with an opening that leads with a specific achievement or relevant insight that hooks the reader immediately. Give me 3 alternative versions.',tip:'The first sentence determines whether they read the rest.'},
+  {id:24,cat:'cover',num:'COVER #4',text:'I\'m applying for a [Job Title] at [Company] but I don\'t meet all the requirements — specifically I lack [missing requirement]. Write a cover letter paragraph that acknowledges this gap briefly, pivots to my strengths, and explains why I\'m still a strong candidate. Confident, not defensive.',tip:'Addressing gaps head-on shows self-awareness and confidence.'},
+  {id:25,cat:'cover',num:'COVER #5',text:'I\'ve done research on [Company]. I know: [2-3 specific facts: recent news, product launch, challenge they face, values]. Write a personalised opening paragraph for my cover letter that shows I\'ve done my homework and connects their situation to why I\'m the right person to help.',tip:'Show you understand their world, not just your own.'},
+  {id:26,cat:'cover',num:'COVER #6',text:'Write a strong closing paragraph for a cover letter for a [Job Title] role. I want to: express enthusiasm without sounding desperate, mention I\'ve attached my CV, reference my availability for interview, and include a confident call to action. Don\'t use "I look forward to hearing from you". Give me 3 variations.',tip:'"I look forward to hearing from you" is weak. Be more specific.'},
+  {id:27,cat:'cover',num:'COVER #7',text:'I\'m applying to a company I previously interviewed with and didn\'t get the job. I want to apply for a new role there 8 months later. Write a cover letter that briefly acknowledges the previous interview positively, shows what\'s changed since then, and makes a compelling case for this new role. British English.',tip:'Reapplying shows persistence — frame it as growth, not desperation.'},
+  {id:28,cat:'cover',num:'COVER #8',text:'I was referred to this role by [Name], who works at [Company] as [their role]. Write an opening paragraph that naturally mentions the referral and uses it to establish credibility, without coming across as name-dropping. The role is [Job Title].',tip:'Referrals should be mentioned early — they get your application read first.'},
+  {id:29,cat:'cover',num:'COVER #9',text:'Write a cover letter for an internal job application. I\'m currently a [Current Role] applying for [Target Role] at the same company. I\'ve been here [X years]. How do I write this without sounding like I\'m just ticking a box? I want to show genuine ambition and make a business case for my promotion.',tip:'Internal applications need to be taken as seriously as external ones.'},
+  {id:30,cat:'cover',num:'COVER #10',text:'This is the job description: [paste]. This is my cover letter: [paste]. Identify the 3 strongest and 3 weakest parts of my letter. Rewrite the weakest 3 sections to better align with what the employer is asking for. Keep my voice but sharpen the relevance.',tip:'Always test your cover letter against the JD — most don\'t.'},
+  {id:31,cat:'cover',num:'COVER #11',text:'I\'m a [Profession] applying for a [Target Role] — a significant career change. Write a cover letter that: acknowledges the change upfront, draws clear parallels between my old and new field, shows genuine motivation (not just "I want a change"), and addresses the main risk the employer might have about hiring me.',tip:'Career change cover letters need to work twice as hard.'},
+  {id:32,cat:'cover',num:'COVER #12',text:'Write a cover letter for a job that explicitly asks for someone with [X years experience] and I only have [Y years, where Y < X]. Frame my application around the depth and pace of my experience rather than the length. Use 2 specific examples: [example 1] and [example 2]. Confident, not apologetic.',tip:'Quality of experience often beats quantity — make that case explicitly.'},
+  {id:33,cat:'cover',num:'COVER #13',text:'I\'m applying for a role at a charity / third-sector organisation. My background is entirely commercial. Write a cover letter paragraph explaining why I want to work in the third sector — make it genuine, specific to [Charity\'s mission], and connect it to a personal or professional motivation I can share: [brief note on your motivation].',tip:'Charities get lots of "I want to give back" letters. Be specific about why this mission.'},
+  {id:34,cat:'cover',num:'COVER #14',text:'I\'m applying through a recruitment agency to a client whose name I don\'t know. Write a cover letter addressed to the hiring manager (unknown) for a [Job Title] role in [Industry]. Keep it general enough to work for the undisclosed employer but specific enough to stand out.',tip:'For agency applications, focus on skills and impact over company-specific knowledge.'},
+  {id:35,cat:'cover',num:'COVER #15',text:'Review this cover letter for passive voice, filler phrases, and weak language: [paste]. Rewrite every passive sentence as active. Remove these filler phrases: "I believe", "I feel", "I think", "I would like to". Replace hedged language with confident, direct statements. British English spelling.',tip:'Passive voice and hedging undermine your credibility. Cut them entirely.'},
+  {id:36,cat:'cover',num:'COVER #16',text:'I\'m applying for a graduate scheme at [Company / Industry]. The scheme values [key attributes from their website: e.g. commercial awareness, leadership, resilience]. Write a cover letter that addresses each attribute with a specific example from university, internships, or extra-curriculars. Under 350 words.',tip:'Graduate schemes are formulaic — make sure you address every stated attribute.'},
+  {id:37,cat:'cover',num:'COVER #17',text:'The job posting says "please tell us why you want to work for us specifically". Write me a 150-word paragraph answering this for [Company], using these specific things I know about them: [2-3 specifics: products, culture, recent news, values]. Avoid generic praise. Show I understand their business.',tip:'This question is designed to filter out copy-paste applicants.'},
+  {id:38,cat:'cover',num:'COVER #18',text:'Write a very short cover email (under 150 words) to accompany my CV as an email body when applying directly. The role is [Job Title] at [Company]. I should mention the role, one key qualification, and ask for an interview. Professional British English. No "please find attached my CV" — make it sound human.',tip:'Email applications need a short, punchy body — not a full cover letter pasted in.'},
+  {id:39,cat:'cover',num:'COVER #19',text:'I\'m returning to work after a [career break duration] break for [reason: parental leave / health / caring for relative]. Write a cover letter paragraph that addresses this break positively — what I did during it, what skills I maintained or developed, and why I\'m ready to return. Confident and forward-looking.',tip:'Career breaks are increasingly common — address it, then move on.'},
+  {id:40,cat:'cover',num:'COVER #20',text:'Give me 10 strong opening lines for a cover letter for a [Job Title] role that DON\'T start with "I", don\'t reference "applying for", and immediately grab attention. The role is in [industry]. My hook could be an achievement, a bold claim, a relevant insight, or a specific connection to the company.',tip:'Collect good openers and adapt them across applications.'},
+
+  // LINKEDIN (41-60)
+  {id:41,cat:'linkedin',num:'LINKEDIN #1',text:'Write a LinkedIn headline for me. My current headline is: [paste or "none"]. My role is [Job Title], I specialise in [area], and my key value is [what makes you good]. I\'m open to [type of opportunities]. Give me 5 headline options — some bold/specific, some traditional. Each under 220 characters.',tip:'Your headline appears everywhere. Make every character count.'},
+  {id:42,cat:'linkedin',num:'LINKEDIN #2',text:'Write my LinkedIn About section. I\'m a [Job Title] with [X years] experience in [industry]. My biggest strength is [1-2 sentences]. My proudest achievement is [1 specific thing]. I\'m looking for [type of role/company]. Write it in first person, conversational British English, under 300 words. End with a call to action.',tip:'Write your About as if talking to someone at a networking event.'},
+  {id:43,cat:'linkedin',num:'LINKEDIN #3',text:'Rewrite these LinkedIn experience bullet points to be more achievement-focused: [paste]. Each bullet should follow: [Verb] + [what you did] + [result/impact]. Add metrics where I\'ve hinted at them. Keep British spelling. Remove any vague descriptors. Give me 3-4 bullets per role.',tip:'LinkedIn bullets should mirror your CV bullets — keep them consistent.'},
+  {id:44,cat:'linkedin',num:'LINKEDIN #4',text:'I want recruiters to find me on LinkedIn for [target job title] roles in [industry]. What keywords should I be using throughout my profile? Where specifically should I place them (headline, About, job titles, skills)? Give me a keyword strategy with specific phrases to add.',tip:'LinkedIn\'s search is keyword-driven. Think like a recruiter searching for you.'},
+  {id:45,cat:'linkedin',num:'LINKEDIN #5',text:'I want to post on LinkedIn to announce I\'m open to new opportunities. Write a post that: is honest but not desperate, explains what I\'m looking for ([target role/industry]), highlights my key value proposition, and asks my network to tag anyone relevant. Under 200 words. Authentic British voice.',tip:'Public "open to work" posts get more reach than the private banner.'},
+  {id:46,cat:'linkedin',num:'LINKEDIN #6',text:'Write a LinkedIn connection request note to [Person\'s name], a [their role] at [Company]. We [met at an event / have a mutual connection: name / I read their post about X]. I want to connect because [specific reason]. Under 300 characters — get to the point immediately.',tip:'Generic "I\'d like to add you to my network" gets ignored. Be specific.'},
+  {id:47,cat:'linkedin',num:'LINKEDIN #7',text:'I want to message a recruiter on LinkedIn who posted a [Job Title] role. I haven\'t applied yet. Write a message that: introduces me in 1 sentence, shows I\'m relevant for the role with 1 specific qualification, expresses genuine interest, and asks if we can connect or if they\'d like my CV. Under 150 words.',tip:'Contact the recruiter AND apply — don\'t just rely on the application.'},
+  {id:48,cat:'linkedin',num:'LINKEDIN #8',text:'Write a LinkedIn post for me to share a professional insight or lesson I recently learned: [describe the situation/lesson in a sentence]. Structure it as: attention-grabbing first line → story/context → insight → takeaway or question to engage comments. Under 300 words. British English, no hashtag spam.',tip:'Insight posts build credibility and get shared far beyond your network.'},
+  {id:49,cat:'linkedin',num:'LINKEDIN #9',text:'Write a LinkedIn recommendation for my colleague [Name], who is a [Job Title]. Their key strengths are: [list 2-3]. The best example of their work I can share: [describe a specific situation]. We worked together at [Company] for [duration]. Under 200 words. Professional but warm.',tip:'Writing recommendations for others often gets you reciprocal ones.'},
+  {id:50,cat:'linkedin',num:'LINKEDIN #10',text:'My LinkedIn profile picture is professional but my background banner is blank/default. Suggest 5 creative, professional LinkedIn banner concepts that would work for a [Job Title] in [Industry]. What text, imagery, or visual concept would make someone pause on my profile? Describe each clearly.',tip:'Your banner is prime visual real estate — 99% of people leave it blank.'},
+  {id:51,cat:'linkedin',num:'LINKEDIN #11',text:'I want to message a hiring manager directly on LinkedIn about a role their company posted. I haven\'t applied yet. Write a message that\'s confident but not pushy — open with a relevant observation about their company or team, briefly explain why I\'d be a strong fit, and ask for a 15-minute call. Under 200 words.',tip:'Most applicants just click Apply — direct outreach to HMs differentiates you.'},
+  {id:52,cat:'linkedin',num:'LINKEDIN #12',text:'Audit my LinkedIn profile for these common weaknesses: weak headline, generic About, no featured content, no skills endorsed, no recommendations, no profile customisation URL, sparse experience descriptions. I\'ll share my profile link or paste sections. Give me a prioritised action list.',tip:'Most LinkedIn profiles fail on the basics — fix these before optimising.'},
+  {id:53,cat:'linkedin',num:'LINKEDIN #13',text:'I want to write a LinkedIn post about [professional topic relevant to your field]. Help me write it using the "Problem → Agitate → Solution" structure. Under 250 words, strong first line that stops the scroll, bullet points where helpful, one question at the end to drive comments.',tip:'PAS (Problem-Agitate-Solution) is the most reliable LinkedIn post framework.'},
+  {id:54,cat:'linkedin',num:'LINKEDIN #14',text:'Write a "thank you for connecting" message to a new LinkedIn connection who is a [their role] at [Company]. I connected because [reason]. I\'d like to [start a conversation / ask for a coffee chat / just keep in touch]. Under 100 words. Warm, genuine, not salesy.',tip:'Most people accept connections then never follow up. Be the exception.'},
+  {id:55,cat:'linkedin',num:'LINKEDIN #15',text:'I\'ve just got a new job as [Job Title] at [Company]. Write a LinkedIn post announcing it. Include: what I\'m excited about, a genuine thank you to previous colleagues (without listing 20 names), what the new role involves, and a forward-looking note. Warm, professional tone. Under 200 words.',tip:'New job announcements get massive reach — write one worth sharing.'},
+  {id:56,cat:'linkedin',num:'LINKEDIN #16',text:'I want to ask someone on LinkedIn for an informational interview — to learn about their career path and get advice, not to ask for a job. They\'re a [role] at [company]. Write a message that\'s genuine, specific about what I want to learn, and makes it very easy for them to say yes. Under 150 words.',tip:'Informational interviews open doors that job boards never will.'},
+  {id:57,cat:'linkedin',num:'LINKEDIN #17',text:'Write 5 comments I could leave on LinkedIn posts by people in [industry/role] to build my professional visibility. The posts are about: [describe 1-3 topic areas]. Each comment should be substantive (adding a perspective, a question, or a contrasting point) — not just "Great post!" Under 50 words each.',tip:'Thoughtful comments build your reputation faster than posts.'},
+  {id:58,cat:'linkedin',num:'LINKEDIN #18',text:'I\'m trying to build my LinkedIn presence in [industry]. Give me 10 post ideas for the next month that would establish me as knowledgeable in this space. Mix of formats: lessons learned, controversial opinions, how-to tips, career stories. Be specific to my field — not generic "thought leadership" fluff.',tip:'Consistency over 30 days compounds your LinkedIn reach dramatically.'},
+  {id:59,cat:'linkedin',num:'LINKEDIN #19',text:'I posted something on LinkedIn 3 weeks ago that got good engagement. Here it is: [paste]. Help me write a follow-up post that builds on this theme, addresses comments/questions that came up, and provides a new angle or deeper insight. Under 250 words. British English.',tip:'Follow-up posts to high-performers consistently outperform original posts.'},
+  {id:60,cat:'linkedin',num:'LINKEDIN #20',text:'Write a LinkedIn featured section blurb for: [describe your portfolio item / article / project / case study]. It should: summarise what it is in 2 sentences, explain why it\'s relevant for [target role/industry], and create enough curiosity that people click through. Under 120 characters.',tip:'The Featured section is viewed — make each item\'s blurb a mini hook.'},
+
+  // INTERVIEW (61-80)
+  {id:61,cat:'interview',num:'INTERVIEW #1',text:'I have an interview for a [Job Title] role at [Company] in [sector]. Generate 15 likely interview questions they\'ll ask — include: 3 role-specific technical questions, 5 behavioural/competency questions, 4 culture/motivational questions, and 3 questions I\'d find hardest to answer. For the 3 hardest, give me a strong answer framework.',tip:'Anticipating the 3 hardest questions is the highest-ROI interview prep you can do.'},
+  {id:62,cat:'interview',num:'INTERVIEW #2',text:'Help me answer this interview question using the STAR framework: "[Question]". My relevant experience: [brief description]. Help me structure a clear Situation, Task, Action, Result answer under 2 minutes when spoken. Include a strong opening line and a punchy result sentence.',tip:'STAR answers that run over 2 minutes lose the interviewer. Practice timing.'},
+  {id:63,cat:'interview',num:'INTERVIEW #3',text:'I\'m about to be asked "Tell me about yourself" in an interview for a [Job Title] role. Write a 90-second answer that: opens with a memorable hook, covers my career arc in 2-3 sentences, highlights 1-2 key achievements relevant to this role, and ends with why I\'m excited about this opportunity specifically. British English.',tip:'"Tell me about yourself" is an open goal — most people waste it. Prepare a polished version.'},
+  {id:64,cat:'interview',num:'INTERVIEW #4',text:'I was asked "What\'s your biggest weakness?" in an interview for [role]. Craft a genuine, professional answer that: names a real weakness (not a disguised strength), shows self-awareness, explains what I\'ve done to improve it, and includes a brief example of progress. Under 90 seconds when spoken. Authentic, not rehearsed-sounding.',tip:'Interviewers can spot fake weaknesses instantly. Be genuinely honest.'},
+  {id:65,cat:'interview',num:'INTERVIEW #5',text:'Generate 10 intelligent questions I should ask at the end of my interview for [Job Title] at [Company]. Mix: questions that show I\'ve done my research, questions about the role\'s real challenges, questions about the team culture, and one question that naturally invites the interviewer to share their own experience.',tip:'Great questions signal genuine interest — and help you decide if you even want the job.'},
+  {id:66,cat:'interview',num:'INTERVIEW #6',text:'Conduct a mock interview with me for a [Job Title] role. Ask me one question at a time, wait for my answer, then give me honest feedback on: content (did I answer the question?), structure (was it clear?), length (too long/short?), and impact (was it convincing?). Start with: "Tell me about yourself."',tip:'Mock interviews catch nervous habits before the real thing.'},
+  {id:67,cat:'interview',num:'INTERVIEW #7',text:'I\'m interviewing for a [Job Title] role at [Company]. I know the interview is competency-based and will use the NHS/Civil Service / [framework name] competency framework. Give me the most likely competencies they\'ll test, one strong STAR example for each based on my background: [brief career overview].',tip:'Competency frameworks are public — look them up and prepare one example per competency.'},
+  {id:68,cat:'interview',num:'INTERVIEW #8',text:'I bombed an interview last week for a [Job Title] role. Here\'s what happened: [brief description of what went wrong]. Help me analyse what I could have done differently, what the interviewer was likely looking for, and give me a prep plan for my next interview so I don\'t repeat the same mistakes.',tip:'Post-mortems on failed interviews compound your improvement faster than anything else.'},
+  {id:69,cat:'interview',num:'INTERVIEW #9',text:'I have a second/final interview for [Job Title] at [Company]. I already passed the first round. What do second interviews typically test that first interviews don\'t? What questions am I likely to face? What should I prepare that I haven\'t already? What mistake do candidates most often make in final rounds?',tip:'Final rounds test cultural fit, senior stakeholder alignment, and genuine commitment.'},
+  {id:70,cat:'interview',num:'INTERVIEW #10',text:'I\'m being interviewed by a panel of [number] interviewers including [roles: e.g. HR, hiring manager, technical lead]. How should I manage eye contact, structure my answers, and address the panel so I engage all of them? What specific mistakes do candidates make in panel interviews?',tip:'Panel interviews have dynamics solo interviews don\'t — prepare for them specifically.'},
+  {id:71,cat:'interview',num:'INTERVIEW #11',text:'I have a video interview via [Teams/Zoom/HireVue] for a [Job Title] role. What setup, lighting, eye contact, and background advice do you have? How does presenting over video differ from in-person? Give me 5 specific, practical tips to look more professional and engaged on screen.',tip:'Video interview technique is a distinct skill from in-person — practise on camera.'},
+  {id:72,cat:'interview',num:'INTERVIEW #12',text:'The interviewer asked "Why do you want to leave your current role?" I\'m leaving because [honest reason: difficult manager / restructuring / no progression / low pay / toxic culture]. Write a professional, honest answer that doesn\'t badmouth my employer but is genuine and doesn\'t sound rehearsed.',tip:'Never badmouth your employer. But never lie either. Find the diplomatic truth.'},
+  {id:73,cat:'interview',num:'INTERVIEW #13',text:'I\'m going to be asked "Where do you see yourself in 5 years?" for a [Job Title] role at [Company, which is a: startup / large corporate / SME]. Write a genuine answer that shows ambition, aligns with what this company can offer, and doesn\'t lock me into an unrealistic commitment. Under 90 seconds when spoken.',tip:'The 5-year question is about ambition and fit — not a contract.'},
+  {id:74,cat:'interview',num:'INTERVIEW #14',text:'Generate 10 difficult/curveball interview questions that companies in [industry] often ask. For each, explain what they\'re really testing and give me a framework for answering it — not a script, a thinking approach. Flag any that could be illegal in the UK and how to handle them.',tip:'Curveball questions test how you think under pressure, not whether you have a "right" answer.'},
+  {id:75,cat:'interview',num:'INTERVIEW #15',text:'I need to give a presentation at my interview on [topic given by employer]. I have [time: e.g. 10 minutes] and [format: e.g. slides/no slides/flipchart]. Structure a compelling presentation for me: opening hook, 3 main points with evidence, conclusion, and recommendations. What will make me stand out?',tip:'Interview presentations are won or lost in the structure, not the slides.'},
+  {id:76,cat:'interview',num:'INTERVIEW #16',text:'I\'m interviewing at [Company]. Help me research them properly. What should I know? Tell me how to find: recent news about them, their financial health signals (if private or public), their culture, their main competitors, and any challenges they\'re facing that my role could help address.',tip:'Deep company research is what separates confident candidates from nervous ones.'},
+  {id:77,cat:'interview',num:'INTERVIEW #17',text:'Write a thank-you email to send after my interview for [Job Title] at [Company]. It was a [phone/video/in-person] interview with [interviewer name(s)]. A key topic we discussed was [topic]. I want to: thank them genuinely, reference one specific part of our conversation, and reiterate my interest. Under 200 words.',tip:'Post-interview thank-you emails are rare — and remembered.'},
+  {id:78,cat:'interview',num:'INTERVIEW #18',text:'I have a technical interview / case study / test for [Job Title] in [days]. It will involve [describe format: e.g. whiteboard coding / written business case / Excel test / psychometric]. What should I specifically prepare in the time I have left? Give me a concrete prep plan, not generic advice.',tip:'Technical assessments reward structured preparation over last-minute cramming.'},
+  {id:79,cat:'interview',num:'INTERVIEW #19',text:'I was rejected after a final-round interview at [Company]. I\'d like to request feedback. Write a professional, gracious email requesting specific feedback — not just "thanks for the opportunity". Include that I\'m genuinely interested in improving and would value any specific observations.',tip:'Most people don\'t ask for feedback. Those who do improve faster.'},
+  {id:80,cat:'interview',num:'INTERVIEW #20',text:'I have multiple interviews running in parallel. One employer is pushing me for a decision before I\'ve heard from my preferred company. Write a professional email to [Pressure Company] asking for a short extension, without revealing I\'m waiting on another offer. And write a nudge email to [Preferred Company] to speed up their process.',tip:'Managing parallel processes is a skill. Communication keeps both relationships warm.'},
+
+  // SALARY (81-100)
+  {id:81,cat:'salary',num:'SALARY #1',text:'I\'ve received a job offer of £[X] for a [Job Title] role in [City] at a [startup/SME/large corporate]. Based on what you know about UK salary ranges for this role and location, is this offer competitive? What\'s the range I should benchmark against? What\'s my realistic counter-offer range?',tip:'Know the market before you counter — never negotiate blind.'},
+  {id:82,cat:'salary',num:'SALARY #2',text:'Write a counter-offer email for me. I\'ve received an offer of £[X] for [Job Title] at [Company]. I want to ask for £[Y]. My justification: [1-2 reasons: market rate / competing offer / specific skills / years experience]. Tone should be positive, grateful for the offer, firm on the number, and collaborative in spirit.',tip:'Frame every counter as "help me understand" not "you\'re wrong".'},
+  {id:83,cat:'salary',num:'SALARY #3',text:'A recruiter asked "What are your salary expectations?" before I know the budget. Write me 3 different responses — one that deflects professionally, one that gives a range with a floor, and one that\'s direct and confident. For [Job Title] in [Location], my target is £[X]. Adapt each for phone / email / in-person.',tip:'Whoever names a number first loses negotiating room. Deflect if you can.'},
+  {id:84,cat:'salary',num:'SALARY #4',text:'I have a competing offer of £[X] from [Company B]. I prefer [Company A] which offered £[Y, where Y < X]. Write a professional message to Company A\'s recruiter, sharing the competing offer and asking if they can match or improve. I want to end up at Company A — make this clear without burning the bridge.',tip:'Competing offers are the most powerful negotiation tool. Use them honestly.'},
+  {id:85,cat:'salary',num:'SALARY #5',text:'I want to ask for a pay rise at my current job. I\'ve been here [X years], my salary is £[current], and the market rate for my role in [city] is approximately £[market]. I have these achievements to back up my case: [list 2-3]. Write a script for a salary conversation with my manager — including how to open it and how to handle pushback.',tip:'Never ask for a pay rise without preparing for "no" — plan your response in advance.'},
+  {id:86,cat:'salary',num:'SALARY #6',text:'My employer has offered me a pay rise of [X%] but I was expecting [Y%]. I don\'t want to reject it outright but I\'m not happy. Write a professional response that: thanks them, questions the basis of the X% figure, presents my case for a higher %, and leaves the door open for negotiation without ultimatums.',tip:'Never reject a pay rise — negotiate it upward.'},
+  {id:87,cat:'salary',num:'SALARY #7',text:'I\'m negotiating my salary and the employer says "the salary is fixed / it\'s a standard band". What do I do? Give me a strategy for negotiating total compensation when salary is genuinely inflexible — including what other benefits, perks, or conditions I should ask for instead (bonus, pension, annual leave, WFH, start date).',tip:'When salary is fixed, the package is usually not.'},
+  {id:88,cat:'salary',num:'SALARY #8',text:'A recruiter is asking for my current salary. I\'m currently on £[X] but this was below market and I took the job for other reasons. Write me a professional response that either declines to share the number, reframes it as "I\'m targeting market rate of £[Y]", or shares it with immediate context to neutralise it.',tip:'You are not obligated to share your current salary in the UK. Redirect to target.'},
+  {id:89,cat:'salary',num:'SALARY #9',text:'The employer has made me an offer verbally. What should I do before accepting or rejecting? What questions should I ask, what should be in the written offer, and what red flags should I look for? Give me a checklist of everything to confirm before I say yes.',tip:'Get everything in writing. Verbal offers are not enforceable.'},
+  {id:90,cat:'salary',num:'SALARY #10',text:'I\'m a contractor or freelancer. A client is asking me my day rate for [type of work] in [industry]. My experience: [brief]. How do I calculate a competitive UK day rate, respond professionally without underselling, and structure a rate negotiation conversation? Give me a script for the rate discussion.',tip:'Day rate negotiation has different norms from salary negotiation — know the difference.'},
+  {id:91,cat:'salary',num:'SALARY #11',text:'I\'ve been offered a job with a £[X] salary but the role would require moving from [City A] to [City B, e.g. London] where cost of living is significantly higher. Write a counter-offer letter that quantifies the cost of living adjustment I need (rent, transport, etc.) and uses this as justification for asking for £[Y] instead.',tip:'Cost-of-living relocation arguments are concrete and hard to dismiss.'},
+  {id:92,cat:'salary',num:'SALARY #12',text:'I want to benchmark my salary and prepare for a negotiation. What are the best UK-specific resources for finding salary data for a [Job Title] in [Industry/Location]? How do I use this data credibly in a negotiation conversation without just saying "I read online that..."?',tip:'Citing sources credibly ("Glassdoor / LinkedIn Salary / Reed 2025 Salary Guide") beats vague market claims.'},
+  {id:93,cat:'salary',num:'SALARY #13',text:'I\'ve been offered a promotion with a title change but only a [X%] pay increase. I feel the increase doesn\'t reflect the new responsibilities. Write a professional response acknowledging the promotion, expressing gratitude, and making a case for a higher salary increase tied specifically to the new responsibilities: [list them].',tip:'Promotions should come with meaningful pay increases. If they don\'t, negotiate.'},
+  {id:94,cat:'salary',num:'SALARY #14',text:'I made a mistake in my salary negotiation — I said a number that was too low before I realised the budget. Now I want to walk it back without looking indecisive. Write a professional message to the recruiter or hiring manager that politely revises my expectations upward with a clear, non-embarrassing rationale.',tip:'You can revise a number — do it quickly, before they put it in writing.'},
+  {id:95,cat:'salary',num:'SALARY #15',text:'I want to negotiate my benefits package, not just my base salary. I\'m joining [Company] at £[X]. What\'s typically negotiable beyond salary in UK jobs? Give me a prioritised list of benefits worth negotiating and a script for raising each one professionally, starting with the most impactful.',tip:'Benefits worth £1,000s are often easier to get than a £1,000 salary bump.'},
+  {id:96,cat:'salary',num:'SALARY #16',text:'I\'ve received an offer but the start date is too soon — I need [longer notice period] to: [reason]. Write a professional email asking to push the start date back by [X weeks] without making the employer nervous I\'m having second thoughts. Reassure them while buying the time I need.',tip:'Start date is almost always negotiable. Don\'t be afraid to ask.'},
+  {id:97,cat:'salary',num:'SALARY #17',text:'I need to decline a job offer after accepting it — I\'ve decided to stay with my current employer / accept another offer. Write a professional, brief email to decline gracefully. I want to keep the door open for future opportunities and leave a good impression. No excessive explanation needed.',tip:'Declining after accepting is awkward — but burning the bridge is worse. Keep it brief and warm.'},
+  {id:98,cat:'salary',num:'SALARY #18',text:'I\'m negotiating a settlement / redundancy package at work. I believe my employer has offered me [describe what\'s on the table]. What are my rights in the UK, what can typically be negotiated in a settlement agreement, and what questions should I ask before signing? I\'ll still consult a solicitor but want to understand the landscape first.',tip:'Always get independent legal advice on settlement agreements — it\'s usually employer-funded.'},
+  {id:99,cat:'salary',num:'SALARY #19',text:'I\'ve accepted an offer at [Company] for £[salary]. I start in [X weeks]. Write a professional email to my current employer resigning, giving [notice period] notice. Keep it brief, grateful, and professional. Don\'t burn bridges — I may work in this industry again. Include a sentence about handing over my responsibilities smoothly.',tip:'Your resignation letter follows you around. Keep it clean and short.'},
+  {id:100,cat:'salary',num:'SALARY #20',text:'I\'m preparing for my annual performance review and want to use it to negotiate a pay rise. Give me a step-by-step strategy: what to prepare before the meeting, how to frame my achievements, when to raise salary specifically, how to handle common pushback lines from managers, and what to do if they say they\'ll "think about it".',tip:'"We\'ll think about it" means no. Get a specific timeline or response in writing.'},
+];
+
+let used = JSON.parse(localStorage.getItem('prompt_used')||'{}');
+let currentCat = 'all';
+
+function renderPrompts(list) {
+    const c = document.getElementById('prompts-container');
+    c.innerHTML = '';
+    list.forEach(p => {
+        const isUsed = used[p.id];
+        const div = document.createElement('div');
+        div.className = `prompt-card${isUsed?' used':''}`;
+        div.dataset.id = p.id;
+        div.innerHTML = `
+            <div class="prompt-meta">
+                <span class="prompt-num">${p.num}</span>
+                <div class="prompt-actions">
+                    <button class="btn btn-copy${isUsed?' copied':''}" onclick="copyPrompt(${p.id},this)">${isUsed?'✓ Copied':'Copy'}</button>
+                    <button class="btn-used${isUsed?' active':''}" onclick="toggleUsed(${p.id},this)">${isUsed?'✓ Used':'Mark used'}</button>
+                </div>
+            </div>
+            <div class="prompt-text">"${p.text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}"</div>
+            <div class="prompt-tip"><strong>💡 Pro tip:</strong> ${p.tip}</div>
+        `;
+        c.appendChild(div);
+    });
+}
+
+function showCat(cat, btn) {
+    currentCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const titles = {all:'All 100 Prompts',cv:'📄 CV Writing — 20 Prompts',cover:'✉️ Cover Letters — 20 Prompts',linkedin:'💼 LinkedIn — 20 Prompts',interview:'🎤 Interview Preparation — 20 Prompts',salary:'💰 Salary Negotiation — 20 Prompts'};
+    document.getElementById('section-title').textContent = titles[cat]||'Prompts';
+    applyFilters();
+}
+
+function applyFilters() {
+    const q = document.getElementById('search').value.toLowerCase();
+    let list = currentCat==='all' ? PROMPTS : PROMPTS.filter(p=>p.cat===currentCat);
+    if (q) list = list.filter(p=>p.text.toLowerCase().includes(q)||p.tip.toLowerCase().includes(q)||p.num.toLowerCase().includes(q));
+    renderPrompts(list);
+    updateStats();
+}
+
+function filterPrompts() { applyFilters(); }
+
+function copyPrompt(id, btn) {
+    const p = PROMPTS.find(x=>x.id===id);
+    navigator.clipboard.writeText(p.text).then(()=>{
+        btn.textContent='✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+    });
+}
+
+function toggleUsed(id, btn) {
+    used[id] = !used[id];
+    if (!used[id]) delete used[id];
+    localStorage.setItem('prompt_used', JSON.stringify(used));
+    const card = document.querySelector(`.prompt-card[data-id="${id}"]`);
+    card.classList.toggle('used', !!used[id]);
+    btn.textContent = used[id] ? '✓ Used' : 'Mark used';
+    btn.classList.toggle('active', !!used[id]);
+    updateStats();
+}
+
+function updateStats() {
+    const n = Object.keys(used).length;
+    document.getElementById('used-count').textContent = n;
+    document.getElementById('remaining-count').textContent = 100-n;
+}
+
+function resetUsed() {
+    if (confirm('Reset all "used" markers?')) {
+        used = {};
+        localStorage.setItem('prompt_used', '{}');
+        applyFilters();
+        updateStats();
+    }
+}
+
+function toggleLight() {
+    document.body.classList.toggle('light');
+}
+
+window.onload = () => { applyFilters(); updateStats(); };
+</script>
+</body>
+</html>

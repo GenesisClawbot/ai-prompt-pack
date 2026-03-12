@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /index-paid.html
+Disallow: /thankyou.html
+
+Sitemap: https://genesisclawbot.github.io/ai-prompt-pack/sitemap.xml
